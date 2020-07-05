@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,49 +13,42 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  final List<Transaction> transactions = [
+    Transaction(id: '1', title: 'one', amount: 30, date: DateTime.now()),
+    Transaction(id: '2', title: 'two', amount: 15, date: DateTime.now())
+  ];
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('My test'),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Card(
-                  color: Colors.deepOrange,
-                  child: Text('List of Row'),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: transactions.map((e) {
+              return Card(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                      leading: Icon(Icons.album),
+                      title: Text(e.title),
+                      subtitle: Text(e.id),
+                    ),
+                    ButtonBar(
+                      children: <Widget>[
+                        FlatButton(
+                          child: Text(e.amount.toString()),
+                          onPressed: () {/* ... */},
+                        ),
+                        FlatButton(
+                          child: Text(e.date.toString()),
+                          onPressed: () {/* ... */},
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Card(
-                  color: Colors.deepOrange,
-                  child: Text('List of Row'),
-                ),
-                Card(
-                  color: Colors.deepOrange,
-                  child: Text('List of Row'),
-                ),
-              ],
-            ),
-            Card(
-              color: Colors.deepOrange,
-              child: Text('List of Col'),
-            ),
-            Card(
-              color: Colors.deepOrange,
-              child: Text('List of Col'),
-            ),
-            Card(
-              color: Colors.deepOrange,
-              child: Text('List of Col'),
-            ),
-            Card(
-              color: Colors.deepOrange,
-              child: Text('List of Col'),
-            )
-          ],
-        ));
+              );
+            }).toList()));
   }
 }
