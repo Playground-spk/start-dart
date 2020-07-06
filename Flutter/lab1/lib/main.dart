@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './transaction.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -41,7 +42,7 @@ class MyHomePage extends StatelessWidget {
                           onPressed: () {/* ... */},
                         ),
                         FlatButton(
-                          child: Text(e.date.toString()),
+                          child: Text(new DateFormat.yMMMd().format(e.date)),
                           onPressed: () {/* ... */},
                         ),
                       ],
