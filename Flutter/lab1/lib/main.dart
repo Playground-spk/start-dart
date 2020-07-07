@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  var amountcontroller = TextEditingController();
+  var titlecontroller;
+
   final List<Transaction> transactions = [
     Transaction(id: '1', title: 'one', amount: 30, date: DateTime.now()),
     Transaction(id: '2', title: 'two', amount: 15, date: DateTime.now())
@@ -23,9 +26,20 @@ class MyHomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('My test'),
         ),
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: transactions.map((e) {
+        body: SingleChildScrollView(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            TextField(
+              decoration: InputDecoration(labelText: 'title'),
+              controller: titlecontroller,
+            ),
+            TextField(
+              decoration: InputDecoration(labelText: 'amount'),
+              controller: amountcontroller,
+            ),
+            FlatButton(
+                onPressed: () => {print(amountcontroller.text)},
+                child: Text('Sumit')),
+            ...transactions.map((e) {
               return Card(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -50,6 +64,8 @@ class MyHomePage extends StatelessWidget {
                   ],
                 ),
               );
-            }).toList()));
+            }).toList()
+          ]),
+        ));
   }
 }
