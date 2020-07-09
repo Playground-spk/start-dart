@@ -13,9 +13,36 @@ class MyApp extends StatelessWidget {
   }
 }
 
+showAlertDialog(BuildContext context, String title, String text) {
+  // set up the button
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text(title),
+    content: Text(text),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 class MyHomePage extends StatelessWidget {
   var amountcontroller = TextEditingController();
-  var titlecontroller;
+  var titlecontroller = TextEditingController();
 
   final List<Transaction> transactions = [
     Transaction(id: '1', title: 'one', amount: 30, date: DateTime.now()),
@@ -33,11 +60,13 @@ class MyHomePage extends StatelessWidget {
               controller: titlecontroller,
             ),
             TextField(
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(labelText: 'amount'),
               controller: amountcontroller,
             ),
             FlatButton(
-                onPressed: () => {print(amountcontroller.text)},
+                color: Colors.lightBlue,
+                onPressed: () => {print(amountcontroller)},
                 child: Text('Sumit')),
             ...transactions.map((e) {
               return Card(
